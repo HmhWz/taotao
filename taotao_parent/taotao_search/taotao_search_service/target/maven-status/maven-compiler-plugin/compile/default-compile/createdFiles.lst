@@ -1,0 +1,6 @@
+com\hmh\search\service\impl\SearchItemServiceImpl.class
+com\hmh\search\service\impl\SearchServiceImpl.class
+com\hmh\search\dao\ItemSearchDao.class
+com\hmh\search\mapper\ItemMapper.class
+com\hmh\search\listener\MyMessageListener.class
+com\hmh\search\listener\ItemAddListener.class

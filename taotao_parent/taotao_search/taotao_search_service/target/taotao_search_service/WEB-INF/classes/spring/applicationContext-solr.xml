@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+    <!--版本更新说明:
+        1.从solr5.x开始,HttpSolrServer就变成了HttpSolrClient
+        2.查看源码发现,之前的构造方法已经修改,以前的注入方法也不再适用.主要由一个静态类builder来构造,而builder需要一个baseUrl,
+          所以差不多就是之前的单baseUrl的构造方法(源码179,830)
+          -->
+    <bean id="httpSolrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
+        <constructor-arg name="baseURL" value="http://119.29.83.167:8080/solr4"/>
+    </bean>
+
+
+</beans>

@@ -1,0 +1,5 @@
+com\hmh\sso\service\impl\UserRegisterServiceImpl.class
+com\hmh\sso\jedis\JedisClientCluster.class
+com\hmh\sso\jedis\JedisClientPool.class
+com\hmh\sso\jedis\JedisClient.class
+com\hmh\sso\service\impl\UserLoginServiceImpl.class

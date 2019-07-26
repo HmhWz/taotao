@@ -1,0 +1,5 @@
+com\hmh\jedis\JedisClientPool.class
+com\hmh\service\impl\ItemServiceImpl.class
+com\hmh\jedis\JedisClientCluster.class
+com\hmh\service\impl\ItemCatServiceImpl.class
+com\hmh\jedis\JedisClient.class

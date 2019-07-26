@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="taotao_sso_interface" />
+        <module name="taotao_search_interface" />
+        <module name="taotao_manager_web" />
+        <module name="taotao_sso_web" />
+        <module name="taotao_manager_interface" />
+        <module name="taotao_portal_web" />
+        <module name="taotao_content_interface" />
+        <module name="taotao_cart_web" />
+        <module name="taotao_order_service" />
+        <module name="taotao_manager_pojo" />
+        <module name="taotao_common" />
+        <module name="taotao_search_web" />
+        <module name="taotao_manager_dao" />
+        <module name="taotao_order_interface" />
+        <module name="taotao_manager_service" />
+        <module name="taotao_content_service" />
+        <module name="taotao_search_service" />
+        <module name="taotao_order_web" />
+        <module name="taotao_sso_service" />
+        <module name="taotao_item_web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="taotao_cart_web" target="1.8" />
+      <module name="taotao_common" target="1.8" />
+      <module name="taotao_content" target="1.8" />
+      <module name="taotao_content_interface" target="1.8" />
+      <module name="taotao_content_service" target="1.8" />
+      <module name="taotao_item_web" target="1.8" />
+      <module name="taotao_manager" target="1.8" />
+      <module name="taotao_manager_dao" target="1.8" />
+      <module name="taotao_manager_interface" target="1.8" />
+      <module name="taotao_manager_pojo" target="1.8" />
+      <module name="taotao_manager_service" target="1.8" />
+      <module name="taotao_manager_web" target="1.8" />
+      <module name="taotao_order" target="1.8" />
+      <module name="taotao_order_interface" target="1.8" />
+      <module name="taotao_order_service" target="1.8" />
+      <module name="taotao_order_web" target="1.8" />
+      <module name="taotao_parent" target="1.8" />
+      <module name="taotao_portal_web" target="1.8" />
+      <module name="taotao_search" target="1.8" />
+      <module name="taotao_search_all" target="1.8" />
+      <module name="taotao_search_interface" target="1.8" />
+      <module name="taotao_search_service" target="1.8" />
+      <module name="taotao_search_web" target="1.8" />
+      <module name="taotao_sso" target="1.8" />
+      <module name="taotao_sso_interface" target="1.8" />
+      <module name="taotao_sso_service" target="1.8" />
+      <module name="taotao_sso_web" target="1.8" />
+      <module name="taotao_test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

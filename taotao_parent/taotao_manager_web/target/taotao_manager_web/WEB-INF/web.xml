@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xmlns="http://java.sun.com/xml/ns/javaee"
+		 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+		 id="taotao" version="2.5">
+	<display-name>taotao-manager-web</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- post乱码过滤器  -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 前端控制器 -->
+	<servlet>
+		<servlet-name>taotao-manager-web</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- contextConfigLocation不是必须的， 如果不配置contextConfigLocation，
+		springmvc的配置文件默认在：WEB-INF/servlet的name+"-servlet.xml" -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/springmvc.xml</param-value>
+		</init-param>
+		<!--其中前端控制器配置中<load-on-startup>1</load-on-startup>这句话的意思是tomcat启动之后便加载DispatcherServlet，
+		如果不配置的话，需要等请求访问的时候才会加载DispatcherServlet。另外可以看到，我们并没有配置父容器（ContextLoaderListener），
+		这是因为我们在taotao-manager工程中已经配置过了，而且配置了Dao和Service。因此我们表现层不需要再配置一遍父容器了。-->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>taotao-manager-web</servlet-name>
+		<!--拦截所有请求 jsp除外-->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+</web-app>

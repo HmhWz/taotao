@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="taotao_sso_service:war">
+    <output-path>$PROJECT_DIR$/taotao_parent/taotao_sso/taotao_sso_service/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>taotao_sso_service</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="taotao_sso_service.war">
+      <element id="artifact" artifact-name="taotao_sso_service:war exploded" />
+    </root>
+  </artifact>
+</component>

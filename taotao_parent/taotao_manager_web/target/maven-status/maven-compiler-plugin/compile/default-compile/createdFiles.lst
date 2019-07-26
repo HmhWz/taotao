@@ -1,0 +1,5 @@
+com\hmh\controller\ItemCatController.class
+com\hmh\controller\IndexManagerController.class
+com\hmh\controller\PageController.class
+com\hmh\controller\ContentCategoryController.class
+com\hmh\controller\ItemController.class
