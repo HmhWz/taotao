@@ -7,7 +7,8 @@
 <head>
     <title>${item.title } - 淘淘</title>
     <script>var jdpts = new Object();
-    jdpts._st = new Date().getTime();</script>
+    jdpts._st = new Date().getTime();
+    </script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" href="/css/taotao.css" media="all"/>
     <link rel="stylesheet" type="text/css" href="/css/pshow.css" media="all"/>

@@ -26,7 +26,7 @@
 
     <!-- 引用dubbo服务 -->
     <dubbo:application name="taotao_sso_web"/>
-    <dubbo:registry protocol="zookeeper" address="119.29.83.167:2181"/>
+    <dubbo:registry protocol="zookeeper" address="212.64.71.151:2181"/>
 
     <dubbo:reference interface="com.hmh.sso.service.UserRegisterService" id="userRegisterService"/>
     <dubbo:reference interface="com.hmh.sso.service.UserLoginService" id="userLoginService"/>

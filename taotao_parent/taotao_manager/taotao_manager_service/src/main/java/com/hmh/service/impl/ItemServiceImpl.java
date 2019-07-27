@@ -29,23 +29,18 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService {
 	@Autowired
 	private TbItemMapper tbItemMapper;
-
 	@Autowired
 	private TbItemDescMapper tbItemDescMapper;
 
 	@Autowired
 	private JmsTemplate jmsTemplate;
-
 	@Resource(name = "topicDestination")
 	private Topic topicDestination;
 
-
 	@Autowired
 	private JedisClient jedisClient;
-
 	@Value("${REDIS_ITEM_KEY}")
 	private String REDIS_ITEM_KEY;
-
 	@Value("${REDIS_ITEM_EXPIRE}")
 	private Integer REDIS_ITEM_EXPIRE;
 
@@ -107,7 +102,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public TaotaoResult addItem(TbItem item, String desc) throws Exception{
+	public TaotaoResult addItem(TbItem item, String desc) throws Exception {
 		// 先生成商品id
 		final long itemId = IDUtils.genItemId();
 		item.setId(itemId);
@@ -128,15 +123,15 @@ public class ItemServiceImpl implements ItemService {
 		tbItemDescMapper.insert(itemDesc);
 
 		// 商品添加完成后发送一个MQ消息
-//		jmsTemplate.send(topicDestination, new MessageCreator() {
-//			@Override
-//			public Message createMessage(Session session) throws JMSException {
-//				// 创建一个消息对象
-//				// 要在匿名内部类访问局部变量itemId，itemId需要用final修饰
-//				TextMessage message = session.createTextMessage(itemId + "");
-//				return message;
-//			}
-//		});
+		jmsTemplate.send(topicDestination, new MessageCreator() {
+			@Override
+			public Message createMessage(Session session) throws JMSException {
+				// 创建一个消息对象
+				// 要在匿名内部类访问局部变量itemId，itemId需要用final修饰
+				TextMessage message = session.createTextMessage(itemId + "");
+				return message;
+			}
+		});
 
 		return TaotaoResult.ok();
 	}

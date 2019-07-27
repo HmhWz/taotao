@@ -31,6 +31,12 @@
           <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz:2.2.2" />
           <element id="library" level="project" name="Maven: c3p0:c3p0:0.9.1.1" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.6.4" />
+          <element id="archive" name="taotao_content_interface-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="taotao_content_interface" />
+          </element>
+          <element id="archive" name="taotao_manager_pojo-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="taotao_manager_pojo" />
+          </element>
           <element id="library" level="project" name="Maven: org.springframework:spring-context:4.2.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.2.4.RELEASE" />
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
@@ -49,6 +55,7 @@
           <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
           <element id="library" level="project" name="Maven: com.alibaba:dubbo:2.5.3" />
           <element id="library" level="project" name="Maven: org.javassist:javassist:3.15.0-GA" />
+          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.54" />
           <element id="library" level="project" name="Maven: org.apache.zookeeper:zookeeper:3.4.14" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
           <element id="library" level="project" name="Maven: com.github.spotbugs:spotbugs-annotations:3.1.9" />

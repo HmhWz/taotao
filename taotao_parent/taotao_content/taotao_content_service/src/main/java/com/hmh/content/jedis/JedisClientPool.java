@@ -10,7 +10,8 @@ public class JedisClientPool implements JedisClient {
 
 	@Override
 	public String set(String key, String value) {
-		Jedis jedis= jedisPool.getResource();
+		//从连接池中获得对象
+		Jedis jedis = jedisPool.getResource();
 		String result = jedis.set(key, value);
 		jedis.close();
 		return result;
@@ -75,7 +76,7 @@ public class JedisClientPool implements JedisClient {
 	@Override
 	public Long hdel(String key, String... field) {
 		Jedis jedis = jedisPool.getResource();
-		Long result = jedis.hdel(key , field);
+		Long result = jedis.hdel(key, field);
 		jedis.close();
 		return result;
 	}

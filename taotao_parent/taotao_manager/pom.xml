@@ -32,8 +32,11 @@
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
-                    <port>8081</port>
+                    <port>8080</port>
                     <path>/</path>
+					<url>http://47.93.192.39:8080/manager/text</url>
+					<username>tomcat</username>
+					<password>tomcat</password>
                 </configuration>
             </plugin>
         </plugins>

@@ -29,4 +29,25 @@ public class ContentController {
 		TaotaoResult result = contentSerive.addContent(content);
 		return result;
 	}
+
+	@RequestMapping("/rest/content/edit")
+	@ResponseBody
+	public TaotaoResult updateContent(TbContent content) {
+		TaotaoResult result = contentSerive.updateContent(content);
+		return result;
+	}
+
+	@RequestMapping("/content/delete")
+	@ResponseBody
+	public TaotaoResult deleteContent(String ids) {
+		TaotaoResult result = contentSerive.deleteContent(ids);
+		return result;
+	}
+
+	@RequestMapping("/content/getContent")
+	@ResponseBody
+	public TaotaoResult getContent(Long id) {
+		TaotaoResult result = contentSerive.getContent(id);
+		return result;
+	}
 }

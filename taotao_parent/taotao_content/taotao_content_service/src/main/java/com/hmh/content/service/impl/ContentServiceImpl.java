@@ -1,5 +1,6 @@
 package com.hmh.content.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hmh.common.pojo.EasyUIDataGridResult;
@@ -48,6 +49,36 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 	@Override
+	public List<TbContent> getContentListByCid(long cid) {
+
+		//首先查询缓存，如果缓存中存在的话，就直接将结果返回给前台展示，查询缓存不能影响业务流程
+		try {
+			String json = jedisClient.hget(CONTENT_KEY, cid + "");
+			//如果从缓存中查到了结果
+			if (StringUtils.isNotBlank(json)) {
+				//将json串转化为List<TbContent>
+				List<TbContent> list = JSON.parseArray(json, TbContent.class);
+				return list;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		TbContentExample example = new TbContentExample();
+		TbContentExample.Criteria criteria = example.createCriteria();
+		criteria.andCategoryIdEqualTo(cid);
+		List<TbContent> list = contentMapper.selectByExample(example);
+		//添加缓存，不能影响业务流程
+		try {
+			String json = JSON.toJSONString(list);
+			jedisClient.hset(CONTENT_KEY, cid + "", json);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//返回结果
+		return list;
+	}
+
+	@Override
 	public TaotaoResult addContent(TbContent content) {
 		// 补全pojo的属性
 		content.setCreated(new Date());
@@ -59,6 +90,33 @@ public class ContentServiceImpl implements ContentService {
 		jedisClient.hdel(CONTENT_KEY, content.getCategoryId().toString());
 
 		return TaotaoResult.ok();
+	}
+
+	@Override
+	public TaotaoResult updateContent(TbContent content) {
+		// 填充属性
+		content.setUpdated(new Date());
+		//更新内容
+		contentMapper.updateByPrimaryKey(content);
+		//返回结果
+		return TaotaoResult.ok();
+	}
+
+	@Override
+	public TaotaoResult deleteContent(String ids) {
+		String[] idList = ids.split(",");
+		for (String id : idList) {
+			//删除内容
+			contentMapper.deleteByPrimaryKey(Long.valueOf(id));
+		}
+		//返回结果
+		return TaotaoResult.ok();
+	}
+
+	@Override
+	public TaotaoResult getContent(long id) {
+		TbContent content = contentMapper.selectByPrimaryKey(id);
+		return TaotaoResult.ok(content);
 	}
 
 }

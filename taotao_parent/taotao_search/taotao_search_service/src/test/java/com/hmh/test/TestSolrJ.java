@@ -17,29 +17,32 @@ import java.util.Map;
 public class TestSolrJ {
 
 	@Test
-	public void testSolrJAddDocument() throws IOException, SolrServerException {
-		SolrServer solrServer = new HttpSolrServer("http://119.29.83.167:8080/solr4/collection1");
+	public void testAddDocument() throws Exception {
+		//创建一个SolrServer对象，创建一个HttpSolrServer对象，需要指定solr服务的url
+		//如果有多个collection则需要指定要操作哪个collection，如果只有一个，可以不指定
+		SolrServer solrServer = new HttpSolrServer("http://212.64.71.151:8983/solr/collection1");
+		//创建一个文档对象SolrInputDocument
 		SolrInputDocument document = new SolrInputDocument();
-
-		document.addField("id", "test001");
+		//向文档中添加域，必须有id域，域的名称必须在schema.xml中定义
+		document.addField("id", "1111");
 		document.addField("item_title", "海尔空调");
-		document.addField("item_sell_point", "送一个电暖宝");
+		document.addField("item_sell_point", "送电暖宝一个哦");
 		document.addField("item_price", 10000);
-		document.addField("item_image", "http://123.jpg");
+		document.addField("item_image", "http://www.123.jpg");
 		document.addField("item_category_name", "电器");
-		document.addField("item_desc", "这是一款最新的空调，实惠，质量好");
-
+		document.addField("item_desc", "这是一款最新的空调，质量好，值得信赖！！");
+		//将document添加到索引库
 		solrServer.add(document);
+		//提交
 		solrServer.commit();
-
 	}
 
 	@Test
 	public void testSolrJDeleteDocument() throws Exception {
 		// 创建一个SolrServer对象，即HttpSolrServer对象，需要指定solr服务的url
-		SolrServer solrServer = new HttpSolrServer("http://119.29.83.167:8080/solr4/collection1");
+		SolrServer solrServer = new HttpSolrServer("http://212.64.71.151:8983/solr/collection1");
 		// 通过id来删除文档
-		solrServer.deleteById("test001");
+		solrServer.deleteById("1111");
 		// 提交
 		solrServer.commit();
 	}
@@ -47,7 +50,7 @@ public class TestSolrJ {
 	@Test
 	public void deleteDocumentByQuery() throws Exception {
 		// 创建一个SolrServer对象，即HttpSolrServer对象，需要指定solr服务的url
-		SolrServer solrServer = new HttpSolrServer("http://119.29.83.167:8080/solr4/collection1");
+		SolrServer solrServer = new HttpSolrServer("http://212.64.71.151:8983/solr/collection1");
 		// 通过价格来删除文档
 		solrServer.deleteByQuery("item_price:10000");
 		// 提交
@@ -57,9 +60,9 @@ public class TestSolrJ {
 	@Test
 	public void queryDocument() throws Exception {
 		// 创建一个SolrServer对象，即HttpSolrServer对象，需要指定solr服务的url
-		SolrServer solrServer = new HttpSolrServer("http://119.29.83.167:8080/solr4/collection1");
+		SolrServer solrServer = new HttpSolrServer("http://212.64.71.151:8983/solr/collection1");
 		SolrQuery query = new SolrQuery();
-		query.setQuery("id:test001");
+		query.setQuery("id:1111");
 		QueryResponse response = solrServer.query(query);
 		SolrDocumentList list = response.getResults();
 		for (SolrDocument document : list) {
@@ -72,7 +75,7 @@ public class TestSolrJ {
 
 	@Test
 	public void testQueryDocument() throws Exception {
-		SolrServer solrServer = new HttpSolrServer("http://119.29.83.167:8080/solr4");
+		SolrServer solrServer = new HttpSolrServer("http://212.64.71.151:8983/solr/");
 		// 创建一个SolrQuery对象
 		SolrQuery query = new SolrQuery();
 		query.setQuery("手机");

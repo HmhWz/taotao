@@ -1,28 +1,51 @@
 package com.hmh.search.exception;
 
-import org.apache.log4j.Logger;
+import com.hmh.search.utils.SendMail;
+import com.hmh.search.utils.StackTrace;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
 public class GlobalExceptionResolver implements HandlerExceptionResolver {
 
-	private static Logger logger = Logger.getLogger(GlobalExceptionResolver.class);
+	//获取logger
+	private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionResolver.class);
 
 	@Override
-	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response,
+	public ModelAndView resolveException(HttpServletRequest rquest, HttpServletResponse response,
 										 Object handler, Exception e) {
-		// 写日志文件
-		logger.error("运行时异常", e);
-		// 发短信、发邮件
-		// 发短信：调用第三方运营商服务；发邮件使用jmail包
-		// 跳转到友好地错误页面
+		logger.info("进入全局异常处理器。。。");
+		logger.debug("测试handler的类型：" + handler.getClass());
+		//控制台打印异常
+		e.printStackTrace();
+		//向日志文件中写入异常
+		logger.error("系统发生异常", e);
+		//发邮件（采用jmail客户端进行发送）
+		Runnable myRunnable = new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					SendMail.sendEmail("搜索系统出现异常", StackTrace.getStackTrace(e));
+				} catch (MessagingException e1) {
+					e1.printStackTrace();
+				}
+			}
+		};
+		Thread thread = new Thread(myRunnable);
+		thread.start();
+		//发短信
+		//展示错误页面
 		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("message", "当前网络出现故障，请稍后重试！");
+		//返回逻辑视图，这样回去访问error目录下的error.jsp
 		modelAndView.setViewName("error/exception");
-		modelAndView.addObject("message", "您的网络异常，请稍后重试。。。。。");
 		return modelAndView;
 	}
 

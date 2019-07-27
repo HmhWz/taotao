@@ -15,10 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 商品搜索dao
+ * 商品搜索dao 封装作用
  * <p>Title: ItemSearchDao</p>
  * <p>Description: </p>
  * <p>Company: www.itcast.cn</p>
+ *
  * @version 1.0
  */
 @Repository

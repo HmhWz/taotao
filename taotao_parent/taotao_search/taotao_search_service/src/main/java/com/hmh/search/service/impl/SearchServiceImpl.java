@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
  * <p>Title: SearchServiceImpl</p>
  * <p>Description: </p>
  * <p>Company: www.itcast.cn</p>
+ *
  * @version 1.0
  */
 @Service

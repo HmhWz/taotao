@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * <p>Title: SearchController</p>
  * <p>Description: </p>
  * <p>Company: www.itcast.cn</p>
+ *
  * @version 1.0
  */
 @Controller
@@ -27,7 +28,11 @@ public class SearchController {
 
 	@RequestMapping("/search")
 	public String searchItem(@RequestParam("q") String queryString,
-							 @RequestParam(defaultValue="1") Integer page, Model model) throws Exception {
+
+							 @RequestParam(defaultValue = "1") Integer page, Model model) throws Exception {
+//		int a = 1 / 0;
+
+		//编码需要改为UTF-8
 		queryString = new String(queryString.getBytes("ISO8859-1"), "UTF-8");
 		// 调用服务搜索商品信息
 		SearchResult searchResult = searchService.search(queryString, page, ITEM_ROWS);
@@ -37,7 +42,6 @@ public class SearchController {
 		model.addAttribute("itemList", searchResult.getItemList());
 		model.addAttribute("page", page);
 
-//		int a = 1/0;
 		// 返回逻辑视图
 		return "search";
 	}

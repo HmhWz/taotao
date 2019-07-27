@@ -2,7 +2,7 @@ package com.hmh.search.service.impl;
 
 import com.hmh.common.pojo.SearchItem;
 import com.hmh.common.pojo.TaotaoResult;
-import com.hmh.search.mapper.ItemMapper;
+import com.hmh.search.mapper.SearchItemMapper;
 import com.hmh.search.service.SearchItemService;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.common.SolrInputDocument;
@@ -16,6 +16,7 @@ import java.util.List;
  * <p>Title: SearchItemServiceImpl</p>
  * <p>Description:</p>
  * <p>Company: com.hmh</p>
+ *
  * @version 1.0
  */
 @Service
@@ -25,31 +26,35 @@ public class SearchItemServiceImpl implements SearchItemService {
 	private SolrServer solrServer;
 
 	@Autowired
-	private ItemMapper itemMapper;
+	private SearchItemMapper searchItemMapper;
+
 
 	@Override
-	public TaotaoResult importAllItemToIndex() throws Exception {
-		List<SearchItem> list = itemMapper.getItemList();
-
-		for(SearchItem searchItem : list){
-			SolrInputDocument document = new SolrInputDocument();
-
-			document.addField("id", searchItem.getId());
-			document.addField("item_title", searchItem.getTitle());
-			document.addField("item_sell_point", searchItem.getSell_point());
-			document.addField("item_price", searchItem.getPrice());
-			document.addField("item_image", searchItem.getImage());
-			document.addField("item_category_name", searchItem.getCategory_name());
-			document.addField("item_desc", searchItem.getItem_desc());
-
-			solrServer.add(document);
+	public TaotaoResult importAllItemToIndex() {
+		//1、先查询所有商品数据
+		try {
+			List<SearchItem> itemList = searchItemMapper.getItemList();
+			//2、遍历商品数据添加到索引库
+			for (SearchItem searchItem : itemList) {
+				//创建文档对象
+				SolrInputDocument document = new SolrInputDocument();
+				document.setField("id", searchItem.getId());
+				document.setField("item_title", searchItem.getTitle());
+				document.setField("item_sell_point", searchItem.getSell_point());
+				document.setField("item_price", searchItem.getPrice());
+				document.setField("item_image", searchItem.getImage());
+				document.setField("item_category_name", searchItem.getCategory_name());
+				document.setField("item_desc", searchItem.getItem_desc());
+				solrServer.add(document);
+			}
+			solrServer.commit();
+			return TaotaoResult.ok();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TaotaoResult.build(500, "导入数据失败！");
 		}
-		//提交
-		solrServer.commit();
-
-		// 返回TaotaoResult，当你纠结返回值是什么的时候，你就可以使用TaotaoResult。
-		return TaotaoResult.ok();
 	}
+
 }
 
 

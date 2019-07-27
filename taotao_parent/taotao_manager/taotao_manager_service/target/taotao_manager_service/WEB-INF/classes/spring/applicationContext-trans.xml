@@ -35,5 +35,4 @@
 		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.hmh.service.*.*(..))"/>
 	</aop:config>
 
-	<import resource="applicationContext-dao.xml"/>
 </beans>

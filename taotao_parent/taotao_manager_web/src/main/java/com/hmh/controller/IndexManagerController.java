@@ -13,17 +13,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * <p>Title: IndexManagerController</p>
  * <p>Desc: </p>
  * <p>Company: com.hmh</p>
+ *
  * @version 1.0
  */
 @Controller
 public class IndexManagerController {
-//	@Autowired
-//	private SearchItemService searchItemService;
-//
-//	@RequestMapping(value = "/index/import", method = RequestMethod.POST)
-//	@ResponseBody
-//	public TaotaoResult indexImport() throws Exception{
-//		TaotaoResult taotaoResult = searchItemService.importAllItemToIndex();
-//		return taotaoResult;
-//	}
+	@Autowired
+	private SearchItemService searchItemService;
+
+	@RequestMapping(value = "/index/import", method = RequestMethod.POST)
+	@ResponseBody
+	public TaotaoResult indexImport() throws Exception {
+		TaotaoResult taotaoResult = searchItemService.importAllItemToIndex();
+		return taotaoResult;
+	}
 }

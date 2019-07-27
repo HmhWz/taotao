@@ -14,18 +14,23 @@ public class SearchResult implements Serializable {
 	public Long getTotalPage() {
 		return totalPage;
 	}
+
 	public void setTotalPage(Long totalPage) {
 		this.totalPage = totalPage;
 	}
+
 	public Long getTotalNumber() {
 		return totalNumber;
 	}
+
 	public void setTotalNumber(Long totalNumber) {
 		this.totalNumber = totalNumber;
 	}
+
 	public List<SearchItem> getItemList() {
 		return itemList;
 	}
+
 	public void setItemList(List<SearchItem> itemList) {
 		this.itemList = itemList;
 	}
