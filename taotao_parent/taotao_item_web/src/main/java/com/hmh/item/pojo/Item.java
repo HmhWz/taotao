@@ -4,14 +4,6 @@ import com.hmh.pojo.TbItem;
 
 public class Item extends TbItem {
 
-	public String[] getImages() {
-		String image = this.getImage();
-		if (image != null && !"".equals(image)) {
-			return image.split(",");
-		}
-		return null;
-	}
-
 	public Item() {
 	}
 
@@ -29,4 +21,11 @@ public class Item extends TbItem {
 		this.setUpdated(tbItem.getUpdated());
 	}
 
+	public String[] getImages() {
+		String image = this.getImage();
+		if (image != null && !"".equals(image)) {
+			return image.split(",");
+		}
+		return null;
+	}
 }

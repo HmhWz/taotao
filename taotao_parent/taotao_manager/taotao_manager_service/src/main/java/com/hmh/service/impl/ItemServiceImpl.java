@@ -39,31 +39,26 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private JedisClient jedisClient;
-	@Value("${REDIS_ITEM_KEY}")
-	private String REDIS_ITEM_KEY;
-	@Value("${REDIS_ITEM_EXPIRE}")
-	private Integer REDIS_ITEM_EXPIRE;
+	@Value("${ITEM_INFO}")
+	private String ITEM_INFO;
+	@Value("${ITEM_EXPIRE}")
+	private Integer ITEM_EXPIRE;
 
 	@Override
 	public TbItem getItemById(long itemId) {
-		// 先查询缓存
-		try {
-			String json = jedisClient.get(REDIS_ITEM_KEY + ":" + itemId + ":BASE");
-			if (StringUtils.isNotBlank(json)) {
-				TbItem tbItem = JsonUtils.jsonToPojo(json, TbItem.class);
-				return tbItem;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		String json = jedisClient.get(ITEM_INFO + ":" + itemId + ":BASE");
+		if (StringUtils.isNotBlank(json)) {
+			jedisClient.expire(ITEM_INFO + ":" + itemId + ":BASE", ITEM_EXPIRE);
+			TbItem tbItem = JsonUtils.jsonToPojo(json, TbItem.class);
+			return tbItem;
 		}
-
 		// 如果缓存中没有命中，那么查询数据库
 		TbItem item = tbItemMapper.selectByPrimaryKey(itemId);
 		// 添加到缓存
 		try {
-			jedisClient.set(REDIS_ITEM_KEY + ":" + itemId + ":BASE", JsonUtils.objectToJson(item));
+			jedisClient.set(ITEM_INFO + ":" + itemId + ":BASE", JsonUtils.objectToJson(item));
 			// 设置过期时间
-			jedisClient.expire(REDIS_ITEM_KEY + ":" + itemId + ":BASE", REDIS_ITEM_EXPIRE);
+			jedisClient.expire(ITEM_INFO + ":" + itemId + ":BASE", ITEM_EXPIRE);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -72,15 +67,14 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public TbItemDesc getItemDescById(long itemId) {
-		String json = jedisClient.get(REDIS_ITEM_KEY + ":" + itemId + "DESC");
+		String json = jedisClient.get(ITEM_INFO + ":" + itemId + "DESC");
 		if (StringUtils.isNotBlank(json)) {
-			TbItemDesc tbItemDesc = JsonUtils.jsonToPojo(json, TbItemDesc.class);
-			return tbItemDesc;
+			jedisClient.expire(ITEM_INFO + ":" + itemId + "DESC", ITEM_EXPIRE);
+			return JsonUtils.jsonToPojo(json, TbItemDesc.class);
 		}
 		TbItemDesc tbItemDesc = tbItemDescMapper.selectByPrimaryKey(itemId);
-		json = JsonUtils.objectToJson(tbItemDesc);
-		jedisClient.set(REDIS_ITEM_KEY + ":" + itemId + "DESC", json);
-		jedisClient.expire(REDIS_ITEM_KEY + ":" + itemId + "DESC", REDIS_ITEM_EXPIRE);
+		jedisClient.set(ITEM_INFO + ":" + itemId + "DESC", JsonUtils.objectToJson(tbItemDesc));
+		jedisClient.expire(ITEM_INFO + ":" + itemId + "DESC", ITEM_EXPIRE);
 
 		return tbItemDesc;
 	}
